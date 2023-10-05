@@ -14,10 +14,10 @@
         <serenity.version>4.0.1</serenity.version>
         <junit-vintage-engine.version>5.9.3</junit-vintage-engine.version>
         <junit-platform-suite.version>1.9.3</junit-platform-suite.version>
-        <cucumber-junit-platform-engine.version>7.2.3</cucumber-junit-platform-engine.version>
+        <cucumber-junit-platform-engine.version>7.11.1</cucumber-junit-platform-engine.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
-        <webdriver.base.url></webdriver.base.url>
+        <webdriver.base.url>https://shambawebtest.clientele.co.za/shambaweb/login</webdriver.base.url>
     </properties>
     <dependencies>
         <dependency>
