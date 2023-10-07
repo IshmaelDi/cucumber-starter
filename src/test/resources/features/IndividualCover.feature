@@ -6,6 +6,6 @@ Feature: Individual cover for all Ages.
     And Captures required details '<Title>','<Name>'
 
     Examples:
-      | Title | Name |
-      |Mr     |Ishmael|
+      | Title | Name    |
+      | Mr    | Ishmael |
 

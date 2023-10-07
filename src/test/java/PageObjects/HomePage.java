@@ -21,6 +21,7 @@ public class HomePage  extends PageObject {
 
     String NextBtn = "//*[@id=\"idSIButton9\"]";
 
+
     String Password = "//*[@id=\"i0118\"]";
 
     String SignIn = "//*[@id=\"idSIButton9\"]";
@@ -29,7 +30,7 @@ public class HomePage  extends PageObject {
 
     String CaptureSaleXpath = "//*[@id=\"navbarSupportedContent\"]/div/ul/li/div[2]/div[1]/div/a/span";
 
-    String LeadBasketXpath = "/html/body/shamba-root/shamba-layout/div/div[1]/sale-ribbon/div/div/div/div/div/nav/div[1]/a/div/i";
+    String LeadBasketXpath = "//*[@id=\"navbarDropdown\"]/img";
 
     @Step("Open shamba website")
     public void OpenWebsite() throws InterruptedException {
@@ -44,7 +45,7 @@ public class HomePage  extends PageObject {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(LoginBtn))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(UserName))).sendKeys(Username);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(NextBtn))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(UserName))).sendKeys(password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Password))).sendKeys(password);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(SignIn))).click();
 
     }
@@ -61,12 +62,6 @@ public class HomePage  extends PageObject {
 
         $(By.xpath(LeadBasketXpath)).click();
     }
-
-
-
-
-
-
 
 
 
