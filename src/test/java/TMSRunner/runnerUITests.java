@@ -6,16 +6,12 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        features = "src/test/resources/features/TMSLogin.feature",
-        glue = "KorridorPlatformStepsDefinition",
+        features = "src/test/resources/features/TMStest.feature",
+        glue = "TMSStepDefinitions",
         monochrome = false,
 
-        plugin = { "pretty", "html:target/cucumber-reports" }
-
-
+        plugin = {"pretty", "html:target/cucumber-reports"}
 
 )
-
-
-public class runnerTests {
+public class runnerUITests {
 }
