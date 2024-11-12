@@ -6,15 +6,15 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        features = "src/test/resources/features/TMStest.feature",
-        glue = "TMSStepDefinitions",
+        features = "src/test/resources/Features/TMStest.feature",
+        glue = "TMSstepsDefinitions",
         monochrome = false,
 
-        plugin = {"pretty", "html:target/Cucumber-report"},
+        plugin = {"pretty", "html:target/Cucumber-report"}
 //        dryRun = false,
-        tags = "@Test1"
+
 
 
 )
-public class runnerUITests {
+public class runneruitests {
 }
