@@ -10,7 +10,10 @@ import org.junit.runner.RunWith;
         glue = "TMSStepDefinitions",
         monochrome = false,
 
-        plugin = {"pretty", "html:target/cucumber-reports"}
+        plugin = {"pretty", "html:target/Cucumber-report"},
+//        dryRun = false,
+        tags = "@Test1"
+
 
 )
 public class runnerUITests {
