@@ -1,4 +1,4 @@
-Feature: As user I want to create Orders using TMS Application.
+Feature: As Driver I want to create an Order using TMS Application.
 
   Scenario Outline: Validate that user can be able to create Order.
     Given User has valid data and information to create order.
@@ -7,14 +7,13 @@ Feature: As user I want to create Orders using TMS Application.
     And User click create order button
     And Captures and Select Order Information '<OrderId>', '<PONumber>', '<Customer>', '<Route>', '<Product>', '<ProductDescription>', '<DeliveryType>', '<Quantity>', '<SlotTime>'.
     Then Click Save Button.
-    And Click Edit Button
-    And Click Auth Button
+
 
 
     Examples:
-      | OrderId | PONumber | Customer           | Route              | Product | ProductDescription | DeliveryType | Quantity | CollectionDate | DeliveryDate | SlotTime |
-      |TMS001   |TMS002    |SIM001 - Simone Sims|000001 - Zinja Mguni|Product  |TMSP1               |DeliveryType |20         |2024-09-22     |2024-09-22    |00:00     |
-      |TMS001   |TMS002    |SIM001 - Simone Sims|000001 - Zinja Mguni|Product  |TMSP2               |DeliveryType |20         |2024-09-22     |2024-09-22    |00:00     |
-      |TMS001   |TMS002    |SIM001 - Simone Sims|000001 - Zinja Mguni|Product  |TMSP3               |DeliveryType |20         |2024-09-22     |2024-09-22    |00:00     |
+      |OrderId    |PONumber           |Customer            |Route               |Product  |ProductDescription           |DeliveryType |Quantity    |SlotTime |
+      |OrderId 1st|Product Order 10111|SIM001 - Simone Sims|000001 - Zinja Mguni|Product  |Order Successfully Created 01|DeliveryType |20          |00:00     |
+      |OrderId 2nd|Product Order 10112|SIM001 - Simone Sims|000001 - Zinja Mguni|Product  |Order Successfully Created 02|DeliveryType |10          |00:00     |
+      |OrderId 3rd|Product Order 10113|SIM001 - Simone Sims|000001 - Zinja Mguni|Product  |Order Successfully Created 03|DeliveryType |5           |00:00     |
 
 
