@@ -1,141 +1,110 @@
 package TMSPageObjects;
 
 
-
 import net.serenitybdd.annotations.Step;
 import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
 public class TMSPage extends PageObject {
 
-    //WebDriver driver = new ChromeDriver();
-  // WebDriver driver = new FirefoxDriver();
-
-//    String Urls = "https://korridor.crownsoftware.co.za/Order/Edit/16";
-//    public void clickEditButton(){
-//        getDriver().get(Urls);
-//    }
-
-
-
-    //public WebDriver driver;
-
-
-   // getDriver().get(Url);
-
-
-
-    // elements
-
+    // Login IN elements
     String Url = "https://korridor.crownsoftware.co.za/";
     String UserNameXpath = "//input[@id='Input_Email']";
     String PasswordXpath = "//input[@id='Input_Password']";
+    String RememberMeXpath = "//input[@type='checkbox']";
     String LoginButtonXpath = "//button[normalize-space()='Log In']";
 
-    // Landing Page Elements
 
-    String TenantDropXpath = "//*[@id=\"dropdownTenant\"]";
+    // Landing Page Elements
+    String TenantDropXpath = "//select[@name='tenantId']";
 
     // New Order Elements
-
+    String CreateOrderButtonXpath = "//a[@href='/Order/Create']";
     String OrderIdXpath = "//input[@placeholder='Order Id...']";
     String PONumberXpath = "//input[@placeholder='PO Number...']";
-    String OrderXpath = "/html/body/div[2]/aside/section/ul/li[3]/a";
+    String OrderXpath1 = "//a[@href='/Order']";
 
     String ProductDesXpath = "//input[@placeholder='Product Desc...']";
-    String ClickDelTypeDropListXpath = "//*[@id=\"uberForm\"]/section[2]/div[2]/div/div[4]/div/select";
     String SelectDelTypeXpath = "//*[@id=\"uberForm\"]/section[2]/div[2]/div/div[4]/div/select";
     String QTYXpath = "//*[@id=\"uberForm\"]/section[2]/div[2]/div/div[5]/div/input";
-    String CollectionDAteXpath = "//*[@id=\"ExpectedOn\"]";
-    String DeliveryDateXpath = "//*[@id=\"PlannedOn\"]";
     String SlotTimeXpath = "//*[@id=\"SlotTime\"]";
-    String SaveButtonXpath = "//input[@value='Save']";
 
 
     // Action Login Tests
 
-    @Step("Launched TMS Website")
     public void TMSWebsite() {
         getDriver().get(Url);
         getDriver().manage().window().maximize();
-
     }
 
-    @Step("Driver Captures UserName and Password")
     public void LogIn(String UserName, String Password) {
-
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(0));
+    
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(UserNameXpath))).sendKeys(UserName);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(PasswordXpath))).sendKeys(Password);
-
     }
 
-    @Step("CLick LogIn Button")
+    public void RememberMe() {
+        $(By.xpath(RememberMeXpath)).click();
+    }
+
     public void Click() {
+
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(0));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(LoginButtonXpath))).click();
     }
 
-    @Step("Click on Tenant and select Demo from drop list")
-    public void SelectDemo() throws InterruptedException {
-        //Thread.sleep(1000);
-        WebElement dropList = $(By.xpath(TenantDropXpath));
-        Select selectObject = new Select(dropList);
-        selectObject.selectByValue("2");
+    public void SelectDemo()  {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        WebElement demo = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(TenantDropXpath)));
+        Select selectObject = new Select(demo);
+        selectObject.selectByValue("1");
     }
-
     @Step("Click Order")
-    public void Order() throws InterruptedException {
-//      Thread.sleep(1000);
+    public void Order() {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(OrderXpath))).click();
-
-
-//      WebElement button = $(By.xpath(OrderXpath));
-//      button.click();
+        WebElement Order = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(OrderXpath1)));
+        Order.click();
     }
 
-    public void CreateOrder() throws InterruptedException {
-        // Thread.sleep(1000);
-
-        WebElement button = $(By.linkText("Create Order"));
-        button.click();
+    public void CreateOrder()  {
+       WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+       WebElement Order = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(OrderXpath1)));
+       Order.click();
     }
 
-    public void EnterOrderId(String OrderId) {
-        $(By.xpath(OrderIdXpath)).sendKeys("TMS001");
-    }
-
-    public void EnterPONumber(String PONumber) {
-        $(By.xpath(PONumberXpath)).sendKeys("TMS002");
-
-    }
-
-
-    public void SelectCustomer() throws InterruptedException {
+    public void EnterOrderId(String s) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        WebElement txtfield = $(By.xpath("//div[@id='devextreme0']//div[@role='combobox'][normalize-space()='Select...']"));
-        txtfield.click();
-        //Thread.sleep(1000);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='dx-item-content dx-list-item-content'][normalize-space()='SIM001 - Simone Sims']")));
-        WebElement customerOption = $(By.xpath("//div[@class='dx-item-content dx-list-item-content'][normalize-space()='SIM001 - Simone Sims']")); // Replace 'Customer Name' with the actual name
-        customerOption.click();
+        WebElement OrderIdTxt = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(OrderIdXpath)));
+        OrderIdTxt.sendKeys("OrderId 1st");
+
     }
 
-    public void SelectRoute() throws InterruptedException {
+    public void EnterPONumber(String s) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        WebElement PONumberTxt = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(PONumberXpath)));
+        PONumberTxt.sendKeys("PO Number 1st");
+    }
+
+
+    public void SelectCustomer(String s)  {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        WebElement Customer = $(By.xpath("//div[@id='devextreme0']//div[@role='combobox'][normalize-space()='Select...']"));
+        Customer.click();
+        
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='dx-item-content dx-list-item-content']")));
+        WebElement firstCustomerOption = $(By.xpath("//div[@class='dx-item-content dx-list-item-content']")); // Select the first item
+        firstCustomerOption.click();
+    }
+
+    public void SelectRoute(String s) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
         WebElement txtfield = $(By.xpath("//div[contains(text(),'Select...')]"));
         txtfield.click();
@@ -146,7 +115,7 @@ public class TMSPage extends PageObject {
 
     }
 
-    public void SelectProduct(String Product) throws InterruptedException {
+    public void SelectProduct(String s) throws InterruptedException {
 //        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 //
 //        WebElement ClicktxtProduct = $(By.xpath("//select[@title='Product']"));
@@ -155,18 +124,16 @@ public class TMSPage extends PageObject {
 
         Thread.sleep(1000);
         WebElement ClicktxtProduct = $(By.xpath("//select[@title='Product']"));
-        // //select[@title='DeliveryType']
-//        WebElement dropList1 = $(By.xpath(ClickDropListRouteXpath));
         Select selectObjectP = new Select(ClicktxtProduct);
         selectObjectP.selectByValue("5");
     }
 
-    public void EnterProductDesc(String ProductDesc) throws InterruptedException {
-        // Thread.sleep(1000);
-        $(By.xpath(ProductDesXpath)).sendKeys("ProductDesc");
+    public void EnterProductDesc(String s) throws InterruptedException {
+         Thread.sleep(1000);
+        $(By.xpath(ProductDesXpath)).sendKeys("Order Successfully Created 01");
     }
 
-    public void SelectDeliveryType(String DeliveryType) throws InterruptedException {
+    public void SelectDeliveryType(String deliveryType) throws InterruptedException {
         //Thread.sleep(1000);
         WebElement dropList1 = $(By.xpath(SelectDelTypeXpath));
         Select selectObjectD = new Select(dropList1);
@@ -174,7 +141,7 @@ public class TMSPage extends PageObject {
 
     }
 
-    public void EnterQuantity(String Quantity) throws InterruptedException {
+    public void EnterQuantity(String number) throws InterruptedException {
         //Thread.sleep(1000);
         WebElement textField = $(By.xpath(QTYXpath)); // replace with the actual locator
 
@@ -190,7 +157,7 @@ public class TMSPage extends PageObject {
 
 //        $(By.xpath(QTYXpath)).sendKeys("20");
     }
-    public void EnterSlotTime(String SlotTime) {
+    public void EnterSlotTime(String slotTime) {
         $(By.xpath(SlotTimeXpath)).sendKeys("00:00");
     }
 
@@ -202,50 +169,41 @@ public class TMSPage extends PageObject {
     }
 
 
+    public void CLICKEDIT() throws InterruptedException {
+        Thread.sleep(2000);
 
+        WebElement EditButton = $(By.xpath("//*[@id=\"edit\"]"));
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView(true)", EditButton);
+        EditButton.click();
+    }
 
+    public void AuthClick() throws InterruptedException {
+        Thread.sleep(1000);
+        WebElement AuthButton = $(By.xpath("//input[@value='Authorise']"));
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].scrollIntoView(true)", AuthButton);
+        AuthButton.click();
+    }
 
-
-
-//    public void CLICKEDIT() throws InterruptedException {
-////        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-////        WebElement Edit =  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//tbody/tr[10]/td[15]/a[1]")));
-////        JavascriptExecutor js = (JavascriptExecutor) driver;
-////        js.executeScript("arguments[0].scrollIntoView(true)", Edit);
-////        Edit.click();
-//        Thread.sleep(1000);
-//        WebElement EditButton = $(By.xpath("//*[@id=\"edit\"]"));
-//        EditButton.click();
+//@Step("Navigate to Dashboard and Validate")
+//public void NavigateToDashboardAndValidate() throws InterruptedException {
+//    // Click Tenant dropdown and select Demo
+//    SelectDemo();
 //
+//    // Wait and click the Orders button
+//    Order();
+//
+//    // Validate that the dashboard is visible (add more validation if required)
+//    String currentPageTitle = getDriver().getTitle();
+//    if (currentPageTitle == null || !currentPageTitle.contains("Dashboard")) {
+//        throw new AssertionError("Failed to navigate to the Dashboard.");
+//    }
+//}
 
 
 
 
-
-
-
-
-
-        //Edit.click();
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].scrollIntoView(true)", Edit);
-//        Edit.click();
-
-
-//        Thread.sleep(1000);
-//      //WebElement CLICKEDIT = $(By.xpath("//*[@id=\"edit\"]"));
-//      WebElement Edit = $(By.xpath("//*[@id=\"edit\"]"));
-//      JavascriptExecutor js = (JavascriptExecutor) driver;
-//      js.executeScript("arguments[0].scrollIntoView(true)", Edit);
-//        Edit.click();
-
-    //}
-
-//    public void AuthClick(){
-//        WebElement AuthClick = $(By.xpath("//input[@value='Authorise']"));
-//        JavascriptExecutor  js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].scrollIntoView(true)", AuthClick);
-//        AuthClick.click();
     }
 
 
